@@ -1,0 +1,9 @@
+<app-pokemon-header [pokemons]="pokemons" (searchChange)="newPokemonSearch($event)" (typeSelected)="newTypeSelected($event)" (abilitiesSelected)="newAbilitiesSelected($event)">
+</app-pokemon-header>
+<!--recordar que cuando es () = es hijo-padre y está ligado a los eventos
+de Output y EventEmitter y es que nos están pasando información y []= es padre hijo y está ligado a valores en bruto, variables o arreglos, etc y
+en este le estamos pasando información al otro componente-->
+<app-pokemon-homepage (exportPokemons)="exportPokemons($event)" [search]="search" [typeFilter]="typeFilter" [abilityFilter]="abilityFilter">
+</app-pokemon-homepage>
+
+<router-outlet></router-outlet>

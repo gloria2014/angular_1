@@ -1,0 +1,44 @@
+<mat-toolbar>
+    <img class="pokemon-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png" />
+
+    <div class="search-box">
+        <input matInput class="search-input" type="text" 
+        [(ngModel)]="search"
+         (ngModelChange)="searchEvent()"
+          placeholder="ingresa nombre o ID" />
+        <button mat-button class="close-button" *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="searchEvent('')">
+      <mat-icon>close</mat-icon>
+    </button>
+    </div>
+
+    <div class="filter-component">
+        <mat-label class="filter">Filter by Type</mat-label>
+        <mat-form-field class="form-field">
+            <mat-select [(ngModel)]="currenTtype" (ngModelChange)="onTypeSelected()">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let type of types" [value]="type">
+                    {{ type | titlecase }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="filter-component">
+        <mat-label class="filter">Filter by Abilities</mat-label>
+        <mat-form-field class="form-field">
+            <mat-select [(ngModel)]="currentAbilities" (ngModelChange)="onAbilitySelected()" multiple>
+                <mat-select-trigger>
+                    <!--quiero que de mi currentAbilites en la posición 0 parta en blanco, porque no he elegido nada-->
+                    {{currentAbilities ? currentAbilities[0]: ''}}
+                    <!--quiero que de mi currentAbilites cuando ya tengo un largo, pueda ir seleccionando varias o que también pueda ir disminuyendo, por eso voy analizando dichos casos-->
+                    <span *ngIf="currentAbilities?.length > 1" class="additional-selection">
+                (+{{currentAbilities.length - 1}} {{currentAbilities?.length === 2 ? 'other' : 'others'}})
+              </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let ability of abilities" [value]="ability">
+                    {{ ability | titlecase }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</mat-toolbar>

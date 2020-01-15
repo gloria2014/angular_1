@@ -1,0 +1,26 @@
+
+
+<div class="loading" *ngIf="!pokemonesCargados">
+    <mat-spinner></mat-spinner>
+    Cargando pokemones :)
+</div>
+<div style="text-align:center">
+    <div class="grid-layout" *ngIf="pokemonesCargados && pokemonesApi">
+        <div *ngFor="let pokemon of pokemonesApi.results | search: query | typeFilter: typeFilters | abilitiesFilter: abilityFilters">
+            <mat-card class="pokemon-card" *ngIf="pokemon.details">
+                <mat-card-title>{{ pokemon.name | titlecase }}</mat-card-title>
+                <div class="id">{{ pokemon.id }}</div>
+                <div class="background-image">
+                    <img mat-card-image src="{{ pokemon.details.sprites.front_default }}" alt="photo of {{ pokemon.name }}" />
+                </div>
+                <mat-card-content>
+                    <div style="display: block;">
+                        <div *ngFor="let type of pokemon.details.types" class="types" [style.background]="_getTypeColour(type.type.name)">
+                            {{ type.type.name | titlecase }}
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
